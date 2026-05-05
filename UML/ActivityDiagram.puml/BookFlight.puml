@@ -1,0 +1,22 @@
+@startuml 
+title Activity Diagram - Book Flight 
+ 
+ 
+start 
+:Enter Search Criteria (Dest, Date); 
+:Search Available Flights; 
+if (Flights Found?) then (yes) 
+:Display Flight List; 
+:Select Preferred Flight; 
+:Enter Passport Number & Details; 
+:Confirm Booking; 
+:Save Booking as 'Pending'; 
+ 
+ 
+else (no) 
+:Show "No Flights Found" Message; 
+ 
+ 
+endif 
+stop 
+@enduml 

@@ -1,0 +1,66 @@
+@startuml 
+skinparam classAttributeIconSize 0 
+ 
+ 
+class User { -UserId: int -Email: String -UserPassword: String -- 
++login() 
++recoverPassword() 
+} 
+class Tourist { -Name: String -PassportNumber: String -- 
++reserveBooking() 
+} 
+ 
+ 
+class Admin { -EmployeeId: int -- 
++manageBooking() 
+} 
+ 
+ 
+class Flight { -FlightNumber: String -Source: String -Destination: String -Price: double -- 
++checkAvailability() 
+} 
+ 
+ 
+class Hotel { -HotelID: int -Location: String -Price: double -- 
++checkAvailability() 
+} 
+ 
+ 
+class Booking { 
+-BookingID: int -BookingDate: Date -Status: String -- 
++createBooking() 
++cancelBooking() 
+} 
+ 
+ 
+class Payment { -PaymentID: int -Amount: double -Status: String -- 
++processPayment() 
+} 
+ 
+ 
+class Invoice { -InvoiceNumber: String -Date: Date -TaxAmount: double -- 
++generatePDF() 
+} 
+ 
+ 
+class Feedback { -Rating: int -Comment: String -- 
++submitfeedback() 
++Viewfeedback() 
+} 
+' Relationships 
+User <|-- Tourist 
+User <|-- Admin 
+ 
+Tourist "1" -- "*" Feedback 
+Admin "1" -- "*" Feedback : views 
+ 
+Booking "*" -- "1" Hotel 
+Booking "*" -- "1" Flight 
+Booking "1" -- "1" Payment : contains 
+Payment "1" -- "1" Invoice : generates 
+ 
+Tourist "1" -- "*" Booking 
+Admin "1" -- "*" Booking : manages 
+ 
+ 
+@enduml

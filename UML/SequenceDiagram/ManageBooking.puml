@@ -1,0 +1,45 @@
+@startuml 
+hide footbox 
+ 
+actor Admin as A 
+participant "AdminDashboard" as UI 
+participant "BookingManager" as SYS 
+database "Database" as DB 
+ 
+A -> UI: View All Bookings 
+activate UI 
+ 
+UI -> SYS: fetchAllBookings() 
+activate SYS 
+ 
+SYS -> DB: Select * From Bookings 
+activate DB 
+ 
+DB --> SYS: Return Booking List 
+deactivate DB 
+ 
+SYS --> UI: Display Bookings 
+deactivate SYS 
+deactivate UI 
+ 
+ 
+A -> UI: Select BookingID &\nChange Status (e.g., Confirm) 
+activate UI 
+ 
+UI -> SYS: updateBookingStatus(ID, Status) 
+activate SYS 
+ 
+SYS -> DB: Update Status in Database 
+activate DB 
+ 
+ 
+DB --> SYS: Confirmation 
+deactivate DB 
+ 
+SYS --> UI: Show "Update Successful" 
+deactivate SYS 
+ 
+UI --> A: Notify Status Updated 
+deactivate UI 
+ 
+@enduml

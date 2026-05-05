@@ -1,0 +1,45 @@
+@startuml 
+hide footbox 
+ 
+actor Tourist as T 
+participant "FlightInterface" as UI 
+participant "BookingSystem" as SYS 
+database "Database" as DB 
+ 
+T -> UI: Search Flights (Dest, Date) 
+activate UI 
+ 
+UI -> SYS: checkAvailability() 
+activate SYS 
+ 
+SYS -> DB: Query Available Flights 
+activate DB 
+ 
+DB --> SYS: Return Results 
+deactivate DB 
+ 
+SYS --> UI: Show Flight List 
+deactivate SYS 
+deactivate UI 
+ 
+ 
+T -> UI: Select Flight & Enter PassportNo 
+activate UI 
+ 
+UI -> SYS: createBooking(TouristDetails) 
+activate SYS 
+ 
+ 
+SYS -> DB: Save Booking (Status: Pending) 
+activate DB 
+ 
+DB --> SYS: BookingID Generated 
+deactivate DB 
+ 
+SYS --> UI: Display Success Message & BookingID 
+deactivate SYS 
+ 
+UI --> T: Show Confirmation 
+deactivate UI 
+ 
+@enduml

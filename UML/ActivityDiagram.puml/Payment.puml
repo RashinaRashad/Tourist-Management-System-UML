@@ -1,0 +1,25 @@
+@startuml 
+title Activity Diagram - Make Payment 
+ 
+ 
+start 
+:Select Pending Booking; 
+:Choose Payment Method; 
+:Enter Card Details; 
+:Process Transaction; 
+if (Transaction Successful?) then (yes) 
+:Update Booking Status to 'Paid'; 
+fork 
+:Generate Payment Invoice; 
+fork again 
+:Show Success Message; 
+endfork 
+ 
+else (no) 
+:Show Payment Failed Error; 
+:Retry Payment or Choose New Method; 
+ 
+ 
+endif 
+stop 
+@enduml

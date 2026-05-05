@@ -1,0 +1,44 @@
+@startuml 
+hide footbox 
+actor Tourist as T 
+participant "Dashboard" as UI 
+participant "Payment Service" as SYS 
+participant "Payment Gateway" as P 
+database "Database" as DB 
+ 
+T -> UI: Select Booking & Click Pay 
+activate UI 
+ 
+UI -> SYS: initiatePayment(BookingID) 
+activate SYS 
+ 
+SYS -> DB: Get TotalAmount 
+activate DB 
+DB --> SYS: Amount Details 
+deactivate DB 
+ 
+T -> UI: Enter Card Details & Confirm 
+ 
+ 
+UI -> SYS: processTransaction(CardInfo, Amount) 
+ 
+ 
+SYS -> P: validateAndCharge() 
+activate P 
+P --> SYS: Transaction Success (TxnID) 
+deactivate P 
+ 
+SYS -> DB: Update BookingStatus = 'Paid' 
+activate DB 
+SYS -> DB: Save PaymentRecord (Amount, Date) 
+DB --> SYS: Confirmed 
+deactivate DB 
+ 
+ 
+SYS -> UI: Generate & Show Invoice 
+deactivate SYS 
+ 
+UI --> T: Display Receipt & Success Message 
+deactivate UI 
+ 
+@enduml

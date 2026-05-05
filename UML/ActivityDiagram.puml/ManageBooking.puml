@@ -1,0 +1,18 @@
+@startuml 
+title Activity Diagram - Manage Booking 
+ 
+ 
+start 
+:Admin Login to Dashboard; 
+:View All Bookings; 
+:Search Booking by ID; 
+if (Action Required?) then (Update Status) 
+:Select New Status (Confirm/Cancel); 
+:Update Database; 
+:Notify Tourist; 
+else (View Details) 
+:Show Detailed Booking Info; 
+endif 
+:Save Changes; 
+stop 
+@enduml
